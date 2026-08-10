@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#17362f" />
+  <title>Para a Clara ♡</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --green: #17362f;
+      --green-2: #244b42;
+      --paper: #f8f3e8;
+      --paper-2: #efe5d4;
+      --ink: #2d2925;
+      --gold: #b59568;
+      --rose: #a85d68;
+      --shadow: rgba(29, 36, 31, 0.18);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at 10% 15%, rgba(255,255,255,.09), transparent 26%),
+        radial-gradient(circle at 85% 80%, rgba(255,255,255,.06), transparent 24%),
+        linear-gradient(135deg, #102922 0%, var(--green) 55%, #0d241f 100%);
+      color: var(--ink);
+      font-family: "Montserrat", sans-serif;
+      overflow-x: hidden;
+    }
+
+    .grain {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: .08;
+      z-index: 20;
+      background-image:
+        repeating-radial-gradient(circle at 0 0, transparent 0, rgba(255,255,255,.35) 1px, transparent 2px);
+      background-size: 9px 9px;
+      mix-blend-mode: soft-light;
+    }
+
+    .hearts {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 0;
+    }
+
+    .heart {
+      position: absolute;
+      bottom: -40px;
+      color: rgba(255,255,255,.12);
+      animation: floatUp linear infinite;
+      font-family: serif;
+    }
+
+    @keyframes floatUp {
+      from { transform: translateY(0) rotate(0deg); opacity: 0; }
+      15% { opacity: 1; }
+      to { transform: translateY(-115vh) rotate(20deg); opacity: 0; }
+    }
+
+    .page {
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: 32px 18px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .intro {
+      text-align: center;
+      color: #f7f0e6;
+      max-width: 760px;
+      transition: .7s ease;
+    }
+
+    .intro.hide {
+      opacity: 0;
+      transform: translateY(-16px) scale(.98);
+      pointer-events: none;
+      position: absolute;
+    }
+
+    .eyebrow {
+      letter-spacing: .28em;
+      text-transform: uppercase;
+      font-size: .72rem;
+      opacity: .72;
+      margin-bottom: 18px;
+    }
+
+    .intro h1 {
+      font-family: "Cormorant Garamond", serif;
+      font-weight: 500;
+      font-size: clamp(3.3rem, 9vw, 6.7rem);
+      line-height: .9;
+      margin-bottom: 20px;
+    }
+
+    .intro h1 span {
+      display: block;
+      font-style: italic;
+      color: #d8c49f;
+    }
+
+    .intro p {
+      max-width: 580px;
+      margin: 0 auto 30px;
+      line-height: 1.8;
+      font-size: .95rem;
+      color: rgba(255,255,255,.78);
+    }
+
+    .open-btn {
+      border: 1px solid rgba(255,255,255,.35);
+      background: rgba(255,255,255,.08);
+      color: white;
+      border-radius: 999px;
+      padding: 14px 24px;
+      cursor: pointer;
+      font: inherit;
+      letter-spacing: .04em;
+      backdrop-filter: blur(8px);
+      transition: .25s ease;
+    }
+
+    .open-btn:hover {
+      transform: translateY(-2px);
+      background: rgba(255,255,255,.14);
+      border-color: rgba(255,255,255,.6);
+    }
+
+    .letter-wrap {
+      width: min(880px, 100%);
+      display: none;
+      opacity: 0;
+      transform: translateY(28px) scale(.98);
+    }
+
+    .letter-wrap.show {
+      display: block;
+      animation: reveal .9s cubic-bezier(.2,.8,.2,1) forwards;
+    }
+
+    @keyframes reveal {
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    .letter {
+      position: relative;
+      background:
+        linear-gradient(rgba(255,255,255,.35), rgba(255,255,255,.15)),
+        var(--paper);
+      border-radius: 3px;
+      padding: clamp(34px, 7vw, 76px);
+      box-shadow: 0 30px 70px rgba(0,0,0,.26);
+      overflow: hidden;
+      border: 1px solid rgba(181,149,104,.3);
+    }
+
+    .letter::before,
+    .letter::after {
+      content: "";
+      position: absolute;
+      border: 1px solid rgba(181,149,104,.28);
+      pointer-events: none;
+    }
+
+    .letter::before { inset: 14px; }
+    .letter::after { inset: 20px; border-color: rgba(181,149,104,.12); }
+
+    .flower {
+      position: absolute;
+      font-family: "Cormorant Garamond", serif;
+      color: rgba(93,112,83,.22);
+      font-size: 7rem;
+      line-height: 1;
+      user-select: none;
+    }
+
+    .flower.one { top: 4px; right: 22px; transform: rotate(20deg); }
+    .flower.two { bottom: 10px; left: 25px; transform: rotate(-25deg); }
+
+    .letter-head {
+      text-align: center;
+      margin-bottom: 44px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .tiny {
+      font-size: .69rem;
+      letter-spacing: .25em;
+      text-transform: uppercase;
+      color: #837665;
+      margin-bottom: 12px;
+    }
+
+    .letter h2 {
+      font-family: "Cormorant Garamond", serif;
+      color: var(--green);
+      font-size: clamp(2.8rem, 7vw, 5.1rem);
+      font-weight: 500;
+      line-height: .95;
+    }
+
+    .divider {
+      margin: 24px auto 0;
+      width: 100px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--gold);
+    }
+
+    .divider::before,
+    .divider::after {
+      content: "";
+      height: 1px;
+      background: currentColor;
+      flex: 1;
+      opacity: .55;
+    }
+
+    .content {
+      position: relative;
+      z-index: 1;
+      font-family: "Cormorant Garamond", serif;
+      font-size: clamp(1.25rem, 2.8vw, 1.62rem);
+      line-height: 1.65;
+      color: #413b35;
+    }
+
+    .content p {
+      margin-bottom: 22px;
+    }
+
+    .content p:first-child::first-letter {
+      float: left;
+      font-size: 4.5rem;
+      line-height: .75;
+      padding-right: 10px;
+      padding-top: 9px;
+      color: var(--green);
+    }
+
+    .highlight {
+      color: var(--green);
+      font-style: italic;
+    }
+
+    .quote {
+      margin: 36px 0;
+      padding: 20px 26px;
+      border-left: 2px solid var(--gold);
+      background: rgba(181,149,104,.08);
+      color: #554c43;
+      font-style: italic;
+    }
+
+    .signature {
+      margin-top: 42px;
+      text-align: right;
+      font-family: "Cormorant Garamond", serif;
+    }
+
+    .signature small {
+      display: block;
+      font-family: "Montserrat", sans-serif;
+      text-transform: uppercase;
+      letter-spacing: .2em;
+      font-size: .61rem;
+      color: #827566;
+      margin-bottom: 3px;
+    }
+
+    .signature strong {
+      font-size: 2.4rem;
+      color: var(--green);
+      font-weight: 500;
+      font-style: italic;
+    }
+
+    .ending {
+      text-align: center;
+      color: rgba(255,255,255,.65);
+      font-size: .75rem;
+      margin-top: 20px;
+      letter-spacing: .05em;
+    }
+
+    @media (max-width: 560px) {
+      .letter { padding: 42px 30px; }
+      .letter::before { inset: 9px; }
+      .letter::after { inset: 14px; }
+      .flower { font-size: 5rem; }
+      .content { line-height: 1.55; }
+    }
+  </style>
+</head>
+<body>
+  <div class="grain"></div>
+  <div class="hearts" id="hearts"></div>
+
+  <main class="page">
+    <section class="intro" id="intro">
+      <div class="eyebrow">uma carta para você</div>
+      <h1>Clara,<span>eu queria te dizer...</span></h1>
+      <p>
+        Tem coisas que uma mensagem comum não consegue carregar.
+        Então fiz um cantinho só nosso para guardar algumas palavras.
+      </p>
+      <button class="open-btn" id="openLetter">Abrir minha carta ♡</button>
+    </section>
+
+    <section class="letter-wrap" id="letterWrap">
+      <article class="letter">
+        <div class="flower one">❧</div>
+        <div class="flower two">❧</div>
+
+        <header class="letter-head">
+          <div class="tiny">para a menina que chegou sem avisar</div>
+          <h2>Clara ♡</h2>
+          <div class="divider">♡</div>
+        </header>
+
+        <div class="content">
+          <p>
+            Eu não sei exatamente em que momento você deixou de ser só alguém
+            com quem eu gostava de conversar e virou alguém que faz falta quando
+            não está por perto.
+          </p>
+
+          <p>
+            Acho bonito como, de um jeito tão natural, você entrou nos meus dias.
+            Nas conversas bobas, nas risadas, nas provocações, nos assuntos sérios
+            e até nos momentos em que a gente simplesmente está ali.
+            <span class="highlight">Você tornou meus dias mais leves.</span>
+          </p>
+
+          <p>
+            Eu gosto do seu jeito. Do seu sorriso, da sua força, da sua fé,
+            da forma como você ri e de como consigo ser eu mesmo quando estou
+            falando com você. Gosto até das pequenas coisas que talvez você nem
+            perceba, mas que eu fui guardando com carinho.
+          </p>
+
+          <div class="quote">
+            “Desde que você chegou, eu não me sinto mais tão sozinho.
+            É como se Deus tivesse colocado alguém no meu caminho exatamente
+            quando eu precisava encontrar.”
+          </div>
+
+          <p>
+            Eu não sei tudo o que o futuro reserva para nós, e talvez essa seja
+            uma das partes mais bonitas. Não quero apressar cada capítulo.
+            Quero viver cada momento, conhecer você cada vez mais e construir
+            algo verdadeiro, com carinho, respeito, amizade e Deus no centro.
+          </p>
+
+          <p>
+            Mas de uma coisa eu tenho certeza: conhecer você já se tornou uma
+            parte muito especial da minha história. E quando penso em tudo que
+            aconteceu até aqui, meu coração só consegue agradecer.
+          </p>
+
+          <p>
+            Obrigado por ser você, Clara. Por cada conversa, cada risada,
+            cada carinho e cada pedacinho do seu mundo que você decidiu dividir comigo.
+          </p>
+
+          <p class="highlight">
+            Nossa casita, nossa torre — e quem sabe quantas histórias ainda
+            vão caber dentro dela. ♡
+          </p>
+
+          <div class="signature">
+            <small>com carinho,</small>
+            <strong>Du</strong>
+          </div>
+        </div>
+      </article>
+
+      <div class="ending">feito especialmente para Clara • ♡</div>
+    </section>
+  </main>
+
+  <script>
+    const intro = document.getElementById("intro");
+    const letterWrap = document.getElementById("letterWrap");
+    const openLetter = document.getElementById("openLetter");
+
+    openLetter.addEventListener("click", () => {
+      intro.classList.add("hide");
+
+      setTimeout(() => {
+        letterWrap.classList.add("show");
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }, 350);
+    });
+
+    const hearts = document.getElementById("hearts");
+
+    for (let i = 0; i < 18; i++) {
+      const heart = document.createElement("span");
+      heart.className = "heart";
+      heart.textContent = Math.random() > .45 ? "♡" : "♥";
+      heart.style.left = Math.random() * 100 + "%";
+      heart.style.fontSize = (10 + Math.random() * 19) + "px";
+      heart.style.animationDuration = (8 + Math.random() * 11) + "s";
+      heart.style.animationDelay = (-Math.random() * 16) + "s";
+      hearts.appendChild(heart);
+    }
+  </script>
+</body>
+</html>
